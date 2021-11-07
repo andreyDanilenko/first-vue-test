@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "poster": "product-1.png",
+      "title": "«Рождение Венеры» Сандро Боттичелли",
+      "oldPrice": 3000000,
+      "price": 1500000,
+      "isAvailability": true
+    },
+    {
+      "id": 2,
+      "poster": "product-2.png",
+      "title": "«Тайная вечеря»  Леонардо да Винчи",
+      "oldPrice": "",
+      "price": 2000000,
+      "isAvailability": true
+    },
+    {
+      "id": 3,
+      "poster": "product-3.png",
+      "title": "«Сотворение Адама» Микеланджело",
+      "oldPrice": 7000000,
+      "price": 3500000,
+      "isAvailability": true
+    },
+    {
+      "id": 4,
+      "poster": "product-4.png",
+      "title": "«Урок анатомии»  Рембрандт",
+      "oldPrice": 8000000,
+      "price": 4000000,
+      "isAvailability": false
+    },
+    {
+      "id": 5,
+      "poster": "product-1.png",
+      "title": "«Урок биологии»  Рембрандт",
+      "oldPrice": 4000000,
+      "price": 2300000,
+      "isAvailability": true
+    },
+    {
+      "id": 6,
+      "poster": "product-2.png",
+      "title": "«Урок физики»  Рембрандт",
+      "oldPrice": 70000000,
+      "price": 21030000,
+      "isAvailability": true
+    }
+  ]
+}
