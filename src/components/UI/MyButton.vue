@@ -7,7 +7,7 @@ export default {
   name: "my-button",
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .button {
   font-family: "Merriweather";
   outline: none;

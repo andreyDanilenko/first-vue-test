@@ -2,19 +2,34 @@ import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
 const URL = "http://localhost:3000/cards";
+
 Vue.use(Vuex)
 
 let store = new Vuex.Store({
     // Наальное состояние
     state: {
         cards: [],
-        cart: []
+        card: {},
+        cart: [],
     },
     // Прокидываем полученные данные в начальное состояние
     mutations: {
         SET_CARDS_TO_STATE: (state, cards) => {
             state.cards = cards
         },
+
+        SET_CARD_TO_STATE: (state, id) => {
+            state.cards.forEach(card => {
+                if (card.id == id) {
+                    state.card = card
+                }
+            })
+        },
+
+        SET_CARD_DESTROY: (state) => {
+            state.card = {}
+        },
+
         SET_CART: (state, card) => {
             state.cart.push(card)
         }
@@ -22,7 +37,7 @@ let store = new Vuex.Store({
     // Делаем запрос на сервер 
     actions: {
         async GET_CARDS_FROM_API({ commit }) {
-            return axios(URL, {
+            return await axios(URL, {
                 method: "GET"
             }).then(cards => {
                 commit("SET_CARDS_TO_STATE", cards.data);
@@ -32,7 +47,12 @@ let store = new Vuex.Store({
                 return error;
             })
         },
-        async ADD_TO_CART({ commit }, card) {
+
+        GET_CARD_FROM_API({ commit }, id) {
+            commit("SET_CARD_TO_STATE", id);
+
+        },
+        ADD_TO_CART({ commit }, card) {
             commit('SET_CART', card)
         }
     },

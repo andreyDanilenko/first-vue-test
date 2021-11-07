@@ -1,6 +1,9 @@
 <template lang="pug">
 .card(:class="!card.isAvailability ? 'card--disabled' : ''")
-  img.card__poster(:src="require('../assets/img/' + card.poster)")
+  img.card__poster(
+    @click="openCard",
+    :src="require('../assets/img/' + card.poster)"
+  )
   h3.card__title {{ card.title }}
   .card__bye(v-if="card.isAvailability === false") Продана на аукционе
   .card__bye(v-else)
@@ -12,6 +15,7 @@
 </template>
 <script>
 import MyButton from "./UI/MyButton.vue";
+
 export default {
   components: {
     MyButton,
@@ -23,9 +27,15 @@ export default {
     },
   },
 
+  created() {},
+
   methods: {
     addToCard() {
       this.$emit("addToCard", this.card);
+    },
+
+    openCard() {
+      this.$router.push(`${this.card.id}`);
     },
   },
 };
@@ -36,6 +46,10 @@ export default {
   margin: 32px 8px 0;
   width: 100%;
   border: 1px solid #e1e1e1;
+
+  &:hover {
+    transform: scale(1.01);
+  }
 
   &--disabled {
     opacity: 0.5;
@@ -61,6 +75,7 @@ export default {
   }
 
   &__poster {
+    cursor: pointer;
     background-size: cover;
     display: block;
     width: 100%;

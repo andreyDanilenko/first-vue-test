@@ -1,12 +1,14 @@
 <template lang="pug">
-.catalog
-  card-list(@addToCard="addToCard", v-bind:cards="CARDS")
-  cart(v-if="CART.length", :cart="CART")
-</div>
+.page
+  .container
+    h1.title Картины эпохи Возрождения
+    .catalog
+      card-list(@addToCard="addToCard", v-bind:cards="CARDS")
+      cart(v-if="CART.length", :cart="CART")
 </template>
 <script>
-import CardList from "./CardList.vue";
-import Cart from "./Cart.vue";
+import CardList from "../components/CardList.vue";
+import Cart from "../components/Cart.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -36,5 +38,12 @@ export default {
   },
 };
 </script>
-<style lang="">
+<style lang="scss" scoped>
+.title {
+margin-top: 45px;
+  color: #343030;
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 700;
+}
 </style>
