@@ -10,13 +10,15 @@ header.navbar
         router-link.navbar__link(to="/about") О компании
       .navbar__search 
         input(
+          @keyup.enter="search",
           type="text",
           v-model.trim="searchValue",
           placeholder="Поиск по названию картины"
         )
-        my-button Найти
+        my-button(@click.native="search") Найти
 </template>
 <script>
+import { mapActions } from "vuex";
 import MyButton from "./UI/MyButton.vue";
 export default {
   components: {
@@ -26,6 +28,14 @@ export default {
     return {
       searchValue: "",
     };
+  },
+
+  methods: {
+    ...mapActions(["GET_CARDS_FROM_API", "ADD_TO_CART"]),
+
+    search() {
+      this.GET_CARDS_FROM_API(this.searchValue);
+    },
   },
 };
 </script>

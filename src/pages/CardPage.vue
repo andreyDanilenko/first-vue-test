@@ -1,14 +1,15 @@
 <template lang="pug">
-.card-page
+.card-page(v-if="card")
   .container 
     h2.card-page__title {{ card.title }}
     img.card-page__poster(:src="require('../assets/img/' + card.poster)") 
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 export default {
   methods: {
     ...mapActions(["GET_CARD_FROM_API"]),
+    ...mapMutations(["SET_CARD_DESTROY"]),
   },
 
   created() {
@@ -19,6 +20,10 @@ export default {
     ...mapState({
       card: (state) => state.card,
     }),
+  },
+
+  destroyed() {
+    this.SET_CARD_DESTROY();
   },
 };
 </script>

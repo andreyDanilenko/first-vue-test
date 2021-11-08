@@ -4,17 +4,16 @@
     h1.title Картины эпохи Возрождения
     .catalog
       card-list(@addToCard="addToCard", v-bind:cards="CARDS")
-      cart(v-if="CART.length", :cart="CART")
+      //- cart-list(v-if="CART.length", :cart="CART")
 </template>
 <script>
 import CardList from "../components/CardList.vue";
-import Cart from "../components/Cart.vue";
+// import CartList from "../components/CartList.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
     CardList,
-    Cart,
   },
 
   data() {
@@ -40,7 +39,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .title {
-margin-top: 45px;
+  margin-top: 45px;
   color: #343030;
   font-size: 24px;
   line-height: 36px;

@@ -1,7 +1,8 @@
 import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
-const URL = "http://localhost:3000/cards";
+const URL = "http://localhost:3000/cards?q=";
+// http://localhost:3000/cards?q=
 
 Vue.use(Vuex)
 
@@ -9,7 +10,7 @@ let store = new Vuex.Store({
     // Наальное состояние
     state: {
         cards: [],
-        card: {},
+        card: null,
         cart: [],
     },
     // Прокидываем полученные данные в начальное состояние
@@ -18,16 +19,16 @@ let store = new Vuex.Store({
             state.cards = cards
         },
 
-        SET_CARD_TO_STATE: (state, id) => {
-            state.cards.forEach(card => {
-                if (card.id == id) {
-                    state.card = card
-                }
-            })
+        SET_CARD_TO_STATE: (state, card) => {
+            state.card = card
         },
 
         SET_CARD_DESTROY: (state) => {
-            state.card = {}
+            state.card = null
+        },
+
+        SET_SEARCH_VALUE: (state, value) => {
+            state.card = value
         },
 
         SET_CART: (state, card) => {
@@ -36,8 +37,8 @@ let store = new Vuex.Store({
     },
     // Делаем запрос на сервер 
     actions: {
-        async GET_CARDS_FROM_API({ commit }) {
-            return await axios(URL, {
+        async GET_CARDS_FROM_API({ commit }, searchValue = "") {
+            return await axios(`http://localhost:3000/cards?q=` + searchValue, {
                 method: "GET"
             }).then(cards => {
                 commit("SET_CARDS_TO_STATE", cards.data);
@@ -48,17 +49,26 @@ let store = new Vuex.Store({
             })
         },
 
-        GET_CARD_FROM_API({ commit }, id) {
-            commit("SET_CARD_TO_STATE", id);
-
+        async GET_CARD_FROM_API({ commit }, id) {
+            return await axios(`http://localhost:3000/cards/` + `${id}`, {
+                method: "GET"
+            }).then(card => {
+                commit("SET_CARD_TO_STATE", card.data);
+                return card;
+            }).catch((error) => {
+                console.log('Нет данных');
+                return error;
+            })
         },
+
+
         ADD_TO_CART({ commit }, card) {
             commit('SET_CART', card)
         }
     },
     getters: {
         CARDS(state) {
-            return state.cards;
+            return [...state.cards]
         },
         CART(state) {
             return state.cart;

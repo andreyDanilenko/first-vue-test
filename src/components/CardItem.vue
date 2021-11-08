@@ -27,8 +27,6 @@ export default {
     },
   },
 
-  created() {},
-
   methods: {
     addToCard() {
       this.$emit("addToCard", this.card);
