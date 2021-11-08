@@ -19,10 +19,6 @@ npm run build
 json-server --watch db.json
 ```
 ## Тестовое задание на позицию frontend-разработчика
-
-Необходимо сверстать макет страницы интернет-магазина: 
-https://www.figma.com/file/6LxPDEsauEGanhR2nDW68X/Banki.shop?node-id=0%3A1
-
 Технические требования:
 - при выполнении тестового задания использовать VueJS (без использования Vue CLI)
 - разрешено использовать Bootstrap, jQuery
