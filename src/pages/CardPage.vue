@@ -32,6 +32,7 @@ export default {
   &__title {
     margin-top: 40px;
     font-size: 40px;
+    line-height: 44px;
     text-align: center;
   }
 

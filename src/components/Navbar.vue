@@ -15,10 +15,11 @@ header.navbar
           v-model.trim="searchValue",
           placeholder="Поиск по названию картины"
         )
+
         my-button(@click.native="search") Найти
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import MyButton from "./UI/MyButton.vue";
 export default {
   components: {
@@ -32,9 +33,12 @@ export default {
 
   methods: {
     ...mapActions(["GET_CARDS_FROM_API", "ADD_TO_CART"]),
+    ...mapMutations(["SET_SEARCH_VALUE"]),
 
     search() {
       this.GET_CARDS_FROM_API(this.searchValue);
+      this.searchValue = "";
+      if (this.$route.path !== "/") this.$router.push("/");
     },
   },
 };

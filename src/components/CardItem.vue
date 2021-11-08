@@ -1,17 +1,15 @@
 <template lang="pug">
 .card(:class="!card.isAvailability ? 'card--disabled' : ''")
-  img.card__poster(
-    @click="openCard",
-    :src="require('../assets/img/' + card.poster)"
-  )
-  h3.card__title {{ card.title }}
+  img.card__poster(:src="require('../assets/img/' + card.poster)")
+  h3.card__title(@click="openCard") {{ card.title }}
   .card__bye(v-if="card.isAvailability === false") Продана на аукционе
   .card__bye(v-else)
     .card__price
       .card__old-price(v-if="card.oldPrice === ''")
       .card__old-price(v-else) {{ card.oldPrice }} $
       .card__new-price {{ card.price }}
-    my-button(@click.native="addToCard") Купить
+    my-button(v-if="isLoading") Загрузка...
+    my-button(v-else, @click.native="toCart") {{ !card.isCart ? 'Купить' : 'В корзине' }}
 </template>
 <script>
 import MyButton from "./UI/MyButton.vue";
@@ -25,11 +23,20 @@ export default {
       type: Object,
       required: true,
     },
+
+    isLoading: {
+      type: Boolean,
+    },
   },
 
   methods: {
-    addToCard() {
-      this.$emit("addToCard", this.card);
+    toCart() {
+      this.card.id;
+      if (!this.card.isCart) {
+        this.$emit("addToCard", this.card);
+      } else {
+        this.$emit("removeFromCard", this.card);
+      }
     },
 
     openCard() {
@@ -73,13 +80,13 @@ export default {
   }
 
   &__poster {
-    cursor: pointer;
     background-size: cover;
     display: block;
     width: 100%;
   }
 
   &__title {
+    cursor: pointer;
     margin: 20px 24px 0;
     font-weight: 400;
     font-size: 18px;

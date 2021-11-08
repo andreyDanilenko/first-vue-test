@@ -3,8 +3,10 @@
   card-item(
     v-for="card in cards",
     :card="card",
+    :isLoading="isLoading",
     :key="card.id",
-    @addToCard="addToCard"
+    @addToCard="addToCard",
+    @removeFromCard="removeFromCard"
   )
 </template>
 <script>
@@ -17,11 +19,19 @@ export default {
       type: Array,
       required: true,
     },
+
+    isLoading: {
+      type: Boolean,
+    },
   },
 
   methods: {
     addToCard(card) {
       this.$emit("addToCard", card);
+    },
+
+    removeFromCard(card) {
+      this.$emit("removeFromCard", card);
     },
   },
 };

@@ -1,5 +1,5 @@
 <template lang="pug">
-.basket CART
+.basket
 </template>
 <script>
 export default {

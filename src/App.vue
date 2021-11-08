@@ -1,5 +1,5 @@
 <template lang='pug'>
-div
+.page
   navbar
   main
     router-view 
@@ -18,4 +18,14 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/styles/styles.scss";
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
 </style>
