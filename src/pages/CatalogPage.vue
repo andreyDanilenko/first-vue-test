@@ -4,27 +4,31 @@
   .container
     h1.title Картины эпохи Возрождения
     .catalog 
-      card-list(
-        @addToCard="addToCard",
-        @removeFromCard="removeFromCard",
-        :isLoading="isLoadingAddToCart",
-        v-bind:cards="CARDS"
-      )
-      cart-list(v-if="CART.length", :cart="CART")
+      .cards
+        card-item(
+          v-for="card in CARDS",
+          :key="card.id",
+          :card="card",
+          @addToCard="addToCard",
+          @removeFromCard="removeFromCard"
+        )
+      //- cart-list(v-if="CART.length", :cart="CART")
 </template>
 <script>
-import CardList from "../components/CardList.vue";
+import CardItem from "../components/CardItem.vue";
 import CartList from "../components/CartList.vue";
 import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   components: {
-    CardList,
     CartList,
+    CardItem,
   },
 
   data() {
-    return {};
+    return {
+      isLoadingAddToCart: false,
+    };
   },
 
   computed: {
@@ -32,7 +36,6 @@ export default {
     ...mapState({
       searchValue: (state) => state.searchValue,
       isLoading: (state) => state.isLoading,
-      isLoadingAddToCart: (state) => state.isLoadingAddToCart,
     }),
   },
 
@@ -67,5 +70,12 @@ export default {
   text-align: center;
   color: #343030;
   font-size: 40px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 -8px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template lang="pug">
-.card(:class="!card.isAvailability ? 'card--disabled' : ''")
+.card(ref="reference", :class="!card.isAvailability ? 'card--disabled' : ''")
   img.card__poster(:src="require('../assets/img/' + card.poster)")
   h3.card__title(@click="openCard") {{ card.title }}
   .card__bye(v-if="card.isAvailability === false") Продана на аукционе
@@ -8,12 +8,12 @@
       .card__old-price(v-if="card.oldPrice === ''")
       .card__old-price(v-else) {{ card.oldPrice }} $
       .card__new-price {{ card.price }}
-    my-button(v-if="isLoading") Загрузка...
+    my-button(v-if="isLoadingAddToCart") Загрузка...
     my-button(v-else, @click.native="toCart") {{ !card.isCart ? 'Купить' : 'В корзине' }}
 </template>
 <script>
 import MyButton from "./UI/MyButton.vue";
-
+import { mapState } from "vuex";
 export default {
   components: {
     MyButton,
@@ -23,17 +23,29 @@ export default {
       type: Object,
       required: true,
     },
-
-    isLoading: {
-      type: Boolean,
-    },
   },
+
+  data() {
+    return {
+      isLoadingAddToCart: false,
+    };
+  },
+  // computed: {
+  //   ...mapState({
+  //     isLoading: (state) => state.isLoadingAddToCart,
+  //   }),
+  // },
 
   methods: {
     toCart() {
-      this.card.id;
       if (!this.card.isCart) {
+        if (this.$refs.reference) {
+          this.isLoadingAddToCart = true;
+        }
         this.$emit("addToCard", this.card);
+        setTimeout(() => {
+          this.isLoadingAddToCart = false;
+        }, 2000);
       } else {
         this.$emit("removeFromCard", this.card);
       }
@@ -43,6 +55,12 @@ export default {
       this.$router.push(`${this.card.id}`);
     },
   },
+
+  // watch: {
+  //   isLoading() {
+  //     this.isLoadingAddToCart = this.isLoading;
+  //   },
+  // },
 };
 </script>
 <style lang="scss" scoped>
