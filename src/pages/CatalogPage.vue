@@ -9,6 +9,7 @@
           v-for="card in CARDS",
           :key="card.id",
           :card="card",
+          :isLoadingAddToCart="isLoadingAddToCart",
           @addToCard="addToCard",
           @removeFromCard="removeFromCard"
         )
@@ -25,17 +26,12 @@ export default {
     CardItem,
   },
 
-  data() {
-    return {
-      isLoadingAddToCart: false,
-    };
-  },
-
   computed: {
     ...mapGetters(["CARDS", "CART"]),
     ...mapState({
       searchValue: (state) => state.searchValue,
       isLoading: (state) => state.isLoading,
+      isLoadingAddToCart: (state) => state.isLoadingAddToCart,
     }),
   },
 

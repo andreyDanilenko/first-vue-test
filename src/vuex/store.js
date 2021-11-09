@@ -97,7 +97,6 @@ let store = new Vuex.Store({
 
         async ADD_TO_CART({ commit }, card) {
             this.state.isLoadingAddToCart = true;
-            console.log(this.state.isLoadingAddToCart);
             fetch(`http://localhost:3000/cards/` + `${card.id}`, {
                 method: 'put',
                 headers: {
@@ -121,7 +120,6 @@ let store = new Vuex.Store({
 
 
         REMOVE_FROM_CART({ commit }, card) {
-            console.log(card);
             fetch(`http://localhost:3000/cards/` + `${card.id}`, {
                 method: 'put',
                 headers: {

@@ -50,14 +50,24 @@ export default {
 
   &__wrapper {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+
+    @media (min-width: 1024px) {
+      flex-wrap: nowrap;
+    }
   }
 
   &__links {
     flex-grow: 1;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+
+    @media (min-width: 600px) {
+      flex-wrap: nowrap;
+    }
   }
 
   &__link {
@@ -71,12 +81,17 @@ export default {
   }
 
   &__search {
+    margin: 20px auto 0;
     position: relative;
     display: flex;
 
+    @media (min-width: 1024px) {
+      margin: 0;
+    }
+
     input {
       font-family: "Merriweather";
-      min-width: 290px;
+      width: 100%s;
       display: block;
       background-color: #f6f3f3;
       width: 100%;
@@ -87,6 +102,10 @@ export default {
       font-size: 14px;
       line-height: 21px;
       font-weight: 400;
+
+      @media (min-width: 600px) {
+        min-width: 290px;
+      }
     }
   }
 }

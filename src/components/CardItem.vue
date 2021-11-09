@@ -1,5 +1,5 @@
 <template lang="pug">
-.card(ref="reference", :class="!card.isAvailability ? 'card--disabled' : ''")
+.card(:class="!card.isAvailability ? 'card--disabled' : ''")
   img.card__poster(:src="require('../assets/img/' + card.poster)")
   h3.card__title(@click="openCard") {{ card.title }}
   .card__bye(v-if="card.isAvailability === false") Продана на аукционе
@@ -13,7 +13,6 @@
 </template>
 <script>
 import MyButton from "./UI/MyButton.vue";
-import { mapState } from "vuex";
 export default {
   components: {
     MyButton,
@@ -23,29 +22,16 @@ export default {
       type: Object,
       required: true,
     },
-  },
 
-  data() {
-    return {
-      isLoadingAddToCart: false,
-    };
+    isLoadingAddToCart: {
+      type: Boolean,
+    },
   },
-  // computed: {
-  //   ...mapState({
-  //     isLoading: (state) => state.isLoadingAddToCart,
-  //   }),
-  // },
 
   methods: {
     toCart() {
       if (!this.card.isCart) {
-        if (this.$refs.reference) {
-          this.isLoadingAddToCart = true;
-        }
         this.$emit("addToCard", this.card);
-        setTimeout(() => {
-          this.isLoadingAddToCart = false;
-        }, 2000);
       } else {
         this.$emit("removeFromCard", this.card);
       }
@@ -55,12 +41,6 @@ export default {
       this.$router.push(`${this.card.id}`);
     },
   },
-
-  // watch: {
-  //   isLoading() {
-  //     this.isLoadingAddToCart = this.isLoading;
-  //   },
-  // },
 };
 </script>
 <style lang="scss" scoped>
