@@ -19,7 +19,7 @@ npm run build
 ```
 npm install -g json-server
 ```
-Загрузить фейковые данные из папки db.json командой:
+Загрузить сервер из папки db.json командой:
 ```
 json-server --watch db.json
 ```
