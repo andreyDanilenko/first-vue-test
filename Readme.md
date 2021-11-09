@@ -14,6 +14,7 @@ npm start
 npm run build
 ```
 ---
+## Для запауска сервера необходимо:
 Установить зависимости комндой:
 ```
 npm install -g json-server
